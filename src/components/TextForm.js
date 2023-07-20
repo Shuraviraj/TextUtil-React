@@ -31,9 +31,7 @@ export default function TextForm(props) {
     }
   };
   const handleCopy = () => {
-    let completeText = document.getElementById("myBox");
-    completeText.select();
-    navigator.clipboard.writeText(completeText.value);
+    navigator.clipboard.writeText(text);
     props.showAlert("Copied text successfully", "success");
   };
   const handleSpace = () => {
@@ -58,8 +56,8 @@ export default function TextForm(props) {
               value={text}
               placeholder="Enter Text Here"
               style={{
-                backgroundColor: props.mode === "light" ? "white" : "lightgrey",
-                color: props.mode === "light" ? "black" : "#67194d",
+                backgroundColor: props.mode === "light" ? "white" : "#13466e",
+                color: props.mode === "light" ? "black" : "white",
               }}
               onChange={handleOnChange}
               id="myBox"
@@ -80,26 +78,26 @@ export default function TextForm(props) {
               Letter Count <strong>including space</strong> : <span className="text-primary">{text.length}</span>
             </h5>
             <h5>
-              Word Count : <span className="text-primary">{text === "" ? 0 : text.split(" ").length}</span>
+              Word Count : <span className="text-primary">{text.split(/\s+/).filter((e) => e.length !== 0).length}</span>
             </h5>
             <h5>
               Paragraph can be read in : <span className="text-primary">{text === "" ? 0 : 0.008 * text.split(" ").length}</span> min(s)
             </h5>
           </div>
         </div>
-        <button className="btn btn-primary my-3 mx-1" onClick={handleUpClick}>
+        <button className="btn btn-primary my-3 mx-1 my-1" onClick={handleUpClick} disabled={text.length === 0}>
           Convert To Uppercase
         </button>
-        <button className="btn btn-primary my-3 mx-1" onClick={handleLoClick}>
+        <button className="btn btn-primary my-3 mx-1 my-1" onClick={handleLoClick} disabled={text.length === 0}>
           Convert To Lowercase
         </button>
-        <button className="btn btn-primary my-3 mx-1" onClick={handleClear}>
+        <button className="btn btn-primary my-3 mx-1 my-1" onClick={handleClear} disabled={text.length === 0}>
           Clear
         </button>
-        <button className="btn btn-primary my-3 mx-1" onClick={handleCopy}>
+        <button className="btn btn-primary my-3 mx-1 my-1" onClick={handleCopy} disabled={text.length === 0}>
           Copy
         </button>
-        <button className="btn btn-primary my-3 mx-1" onClick={handleSpace}>
+        <button className="btn btn-primary my-3 mx-1 my-1" onClick={handleSpace} disabled={text.length === 0}>
           Remove Extra Space
         </button>
       </div>
